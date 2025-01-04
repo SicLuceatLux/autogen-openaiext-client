@@ -71,7 +71,7 @@ from asyncio import Task
 logger = logging.getLogger(EVENT_LOGGER_NAME)
 trace_logger = logging.getLogger(TRACE_LOGGER_NAME)
 
-from autogen_openaiext_client.info import GeminiInfo, TogetherAIInfo, GroqInfo
+from autogen_openaiext_client.info import GeminiInfo, TogetherAIInfo, GroqInfo, OpenRouterInfo
 
 
 class BaseOpenAIExtChatCompletionClient(BaseOpenAIChatCompletionClient):
@@ -734,4 +734,19 @@ class GroqChatCompletionClient(OpenAIExtChatCompletionClient):
         base_url=GroqInfo.BASE_URL,
         **kwargs: Unpack[OpenAIExtClientConfiguration],
     ):
+        super().__init__(model_info=model_info, base_url=base_url, **kwargs)
+
+class OpenRouterChatCompletionClient(OpenAIExtChatCompletionClient):
+    def __init__(
+        self,
+        model_info=OpenRouterInfo,
+        base_url=OpenRouterInfo.BASE_URL,
+        **kwargs: Unpack[OpenAIExtClientConfiguration],
+    ):
+        # Add OpenRouter-specific headers
+        headers = kwargs.get("headers", {})
+        headers["HTTP-Referer"] = "https://github.com/microsoft/autogen"
+        headers["X-Title"] = "AutoGen"
+        kwargs["headers"] = headers
+        
         super().__init__(model_info=model_info, base_url=base_url, **kwargs)

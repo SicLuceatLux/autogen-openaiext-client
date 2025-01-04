@@ -40,6 +40,87 @@ class ExtInfo:
     ):
         cls._add_model(model_name, model_capabilities, token_limit)
 
+class OpenRouterInfo(ExtInfo):
+    _MODEL_POINTERS = {
+        "gpt-4-turbo": "openai/gpt-4-turbo-preview",
+        "gpt-4": "openai/gpt-4",
+        "gpt-3.5-turbo": "openai/gpt-3.5-turbo",
+        "claude-3-opus": "anthropic/claude-3-opus",
+        "claude-3-sonnet": "anthropic/claude-3-sonnet",
+        "claude-2": "anthropic/claude-2",
+        "mixtral-8x7b": "mistralai/mixtral-8x7b",
+        "mistral-medium": "mistralai/mistral-medium",
+        "mistral-small": "mistralai/mistral-small",
+        "mistral-tiny": "mistralai/mistral-tiny",
+    }
+
+    _MODEL_CAPABILITIES: Dict[str, ModelCapabilities] = {
+        "openai/gpt-4-turbo-preview": {
+            "vision": True,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "openai/gpt-4": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "openai/gpt-3.5-turbo": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "anthropic/claude-3-opus": {
+            "vision": True,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "anthropic/claude-3-sonnet": {
+            "vision": True,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "anthropic/claude-2": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "mistralai/mixtral-8x7b": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "mistralai/mistral-medium": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "mistralai/mistral-small": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+        "mistralai/mistral-tiny": {
+            "vision": False,
+            "function_calling": True,
+            "json_output": True,
+        },
+    }
+
+    _MODEL_TOKEN_LIMITS: Dict[str, int] = {
+        "openai/gpt-4-turbo-preview": 128000,
+        "openai/gpt-4": 8192,
+        "openai/gpt-3.5-turbo": 16385,
+        "anthropic/claude-3-opus": 200000,
+        "anthropic/claude-3-sonnet": 200000,
+        "anthropic/claude-2": 100000,
+        "mistralai/mixtral-8x7b": 32768,
+        "mistralai/mistral-medium": 32768,
+        "mistralai/mistral-small": 32768,
+        "mistralai/mistral-tiny": 32768,
+    }
+
+    BASE_URL: str = "https://openrouter.ai/api/v1"
 
 class GeminiInfo(ExtInfo):
     _MODEL_POINTERS = {"gemini-1.5-flash": "gemini-1.5-flash"}
